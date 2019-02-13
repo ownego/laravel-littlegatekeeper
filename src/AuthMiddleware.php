@@ -42,7 +42,7 @@ class AuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (! $this->authenticator->isAuthenticated()) {
+        if ($this->config->get('littlegatekeeper.enabled') && ! $this->authenticator->isAuthenticated()) {
             return $this->redirector->to($this->config->get('littlegatekeeper.authRoute'));
         }
 
